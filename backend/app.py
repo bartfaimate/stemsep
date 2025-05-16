@@ -30,7 +30,7 @@ def upload_file():
         return jsonify({'error': 'No file uploaded'}), 400
 
     file = request.files['file']
-    filepath = Path('uploads') / file.filename
+    filepath:Path = Path('uploads') / file.filename
     file.save(filepath)
 
     # # Run spleeter
@@ -42,7 +42,7 @@ def upload_file():
     #     '-o', OUTPUT_FOLDER
     # ]
     sep = Separator('spleeter:2stems')
-    sep.separate_to_file(filepath, "output")
+    sep.separate_to_file(filepath.as_posix(), "output")
     
     
     try:
