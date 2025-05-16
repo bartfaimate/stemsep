@@ -8,6 +8,7 @@ services:
     volumes:
       - ./backend/uploads:/app/uploads
       - ./backend/output:/app/output
+      - ../backend:/backend
 
   frontend:
     build: ./frontend
@@ -15,6 +16,9 @@ services:
       - "8081:80"
     depends_on:
       - backend
+    volumes:
+      - ../frontend:/frontend:delegated
+      - /frontend/node_modules
 
 volumes:
   uploads:
