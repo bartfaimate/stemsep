@@ -2,6 +2,7 @@ from flask import Flask, request, jsonify, send_from_directory
 from flask_cors import CORS
 import os
 import subprocess
+from pathlib import Path
 
 app = Flask(__name__)
 CORS(app)
@@ -36,7 +37,8 @@ def upload_file():
 
 @app.route('/download/<filename>/<stem>')
 def download_stem(filename, stem):
-    stem_file = os.path.join(filename.replace('.mp3', ''), f'{stem}.wav')
+    filename = Path(filename)
+    stem_file = Path(filename).stem + '_' + stem + '.wav'
     return send_from_directory(OUTPUT_FOLDER, stem_file, as_attachment=True)
 
 if __name__ == '__main__':
